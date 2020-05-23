@@ -3,8 +3,18 @@ Edge Benchmarking Software for Identifying Adaptivity of Distributed Deep Neural
 
 This repository contains the software code developed for benchmarking Deep Neural Networks (DNNs) distributed across the cloud and edge resources on the Keras platform. The aim is to identify whether there is a case for adaptivity - the need for repartitioning the DNN to adapt to changing operational conditions (CPU, memory, or network) once it is already deployed.
 
+### Article on DNN adaptivity and the benchmarking approach
+More information on the benchmarking method will be made available here shortly. 
+
+The benchmarking approach is a four step process as shown below. 
+![](readme-assets/method.png)
+
+Given a DNN model, the approach firstly identifies all partitioning points of the DNN and exhaustively benchmark the DNNs on a given set of cloud and edge resources under different edge CPU and memory stress and different network data transfer rates between the edge and the cloud resource. The measurement data obtained is analysed to identify the best partition points for a given operational condition. The aim of the research is to identify the cases in the DNNs where a repartitioning is required (performance can be improved when the operational condition changes). 
+
+### Citing this research
 This research can be cited and the information will be available shortly here.
 
+### Instructions for installing the software
 Prior to launching the benchmarking software, each model needs to be pre-partitioned to distribute the DNN across the cloud and the edge. This can be done by using the `cut\_models.py` script. This script can be used as shown below. It produces a series of files, located in a folder called `edge\_model\_<network name>`.
 
 `sudo python3 cut_models.py <network_name>`
