@@ -59,7 +59,7 @@ valid_cut_points_iter = iter(valid_cut_points)
 HOST = '0.0.0.0'  # The server's hostname or IP address
 PORT = 1234        # The port used by the server
 cp = 0
-cut_point = 1
+cut_point = 0
 
 # this is the split point, i.e. the starting layer in our sub-model
 starting_layer_name = model.layers[cut_point].name
@@ -110,7 +110,7 @@ def cut_model_functional(model, cut_point):
         if cut_point >= len(model.layers):
             cut_point = len(model.layers)-1
         elif cut_point <= 0:
-            cut_point = 1
+            cut_point = 0
 
         starting_layer_name = model.layers[cut_point+1].name
         print(starting_layer_name)
@@ -344,7 +344,8 @@ class Handler(socketserver.BaseRequestHandler):
 
                 with open('benchmarking_outputs/outputs_'+str(model_name)+ '/weights_'+"".join([str(x) for x in weights])+'.txt', 'w') as f:
                     for i in range(len(averages)):
-                        if i > 0 and cps[i] > 0:
+                        # if i >= 0 and cps[i] >= 0:
+                        if str(averages[i]) != '0.0':
                             f.write(str(averages[i]) + ' ' + str(edge_averages[i]) + ' ' + str(cloud_averages[i]) + ' ' + str(cps[i]) + '\n')
 
                 averages = []

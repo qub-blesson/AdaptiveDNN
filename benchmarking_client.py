@@ -82,6 +82,8 @@ for c in valid_cut_points:
     modelA = model_from_json(loaded_model_json)
     models.append(modelA)
 
+    print('model layers:', len(modelA.layers))
+
     time.sleep(1)
     print('done sleep')
 
