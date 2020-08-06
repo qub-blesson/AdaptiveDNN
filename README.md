@@ -11,8 +11,9 @@ The benchmarking approach is a four step process as shown below.
 
 Given a DNN model, the approach firstly identifies all partitioning points of the DNN and exhaustively benchmark the DNNs on a given set of cloud and edge resources under different edge CPU and memory stress and different network data transfer rates between the edge and the cloud resource. The measurement data obtained is analysed to identify the best partition points for a given operational condition. The aim of the research is to identify the cases in the DNNs where a repartitioning is required (performance can be improved when the operational condition changes). 
 
-### Citing this research
-This research can be cited and the information will be available shortly here.
+### Citing this work
+This work can be cited as follows:
+F. McNamee, S. Dustadar, P. Kilpatrick, W. Shi, I. Spence and B. Varghese, "[A Case For Adaptive Deep Neural Networks in Edge Computing](https://arxiv.org/pdf/2008.01814.pdf)," eprint arXiv:2008.01814.
 
 ### Instructions for installing the software
 Prior to launching the benchmarking software, each model needs to be pre-partitioned to distribute the DNN across the cloud and the edge. This can be done by using the `cut\_models.py` script. This script can be used as shown below. It produces a series of files, located in a folder called `edge\_model\_<network name>`.
