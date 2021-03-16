@@ -16,12 +16,29 @@ This work can be cited as follows:
 F. McNamee, S. Dustadar, P. Kilpatrick, W. Shi, I. Spence and B. Varghese, "[A Case For Adaptive Deep Neural Networks in Edge Computing](https://arxiv.org/pdf/2008.01814.pdf)," eprint arXiv:2008.01814.
 
 ### Instructions for installing the software
-Prior to launching the benchmarking software, each model needs to be pre-partitioned to distribute the DNN across the cloud and the edge. This can be done by using the `cut\_models.py` script. This script can be used as shown below. It produces a series of files, located in a folder called `edge\_model\_<network name>`.
+This code was tested using Python version 3.8.5 but any version of Python 3 should be fine.
+
+#### Setting up your environment
+* Create a Python virtual environment using pip, shown below.
+
+`python3 -m venv env`
+
+* Activate the virtual environment using the source command, shown below.
+
+`source env/bin/activate`
+
+* Install the dependencies using pip and requirements.txt, shown below.
+
+`python -m pip install -r requirements.txt`
+
+#### Pre-partitioning the models
+Prior to launching the benchmarking software, each model needs to be pre-partitioned to distribute the DNN across the cloud and the edge. This can be done by using the `cut_models.py` script. This script can be used as shown below. It produces a series of files, located in a folder called `edge_model_<network name>`.
 
 `sudo python3 cut_models.py <network_name>`
 
 The benchmarking software will load these models on the edge to speed up benchmarking. This has already been done for the 8 models we used in our research.
 
+#### Lanuching the server
 Using the benchmarking software to conduct experiments should be straightforward. The server should be launched first as shown below.
 
 `sudo python3 benchmarking_server.py <network_name>`
@@ -30,15 +47,16 @@ The use of ‘sudo’ is important. The benchmarking software on the edge artifi
 
 If you try to launch the server without providing the name of a network to benchmark, the following error will be displayed:
 
-_Run like this: `sudo python3 benchmarking\_server.py <network_name>`_
+_Run like this: `sudo python3 benchmarking_server.py <network_name>`_
 
+#### Connect to the server using the client
 Once the server has been launched, the Edge node can be launched. It’s important to run the server first because unless the server is running the client won’t have anything to connect to and will timeout.
 
 `sudo python3 benchmarking_client.py <server_address> <network_name>`
 
 The client expects two parameters to be provided, via the command line. One for the server address and one for the network name. Failing to provide the required parameters will result in an error being displayed like the one shown below:
 
-_Run like this: `sudo python3 benchmarking\_client.py <server\_address> <network\_name>`_
+_Run like this: `sudo python3 benchmarking_client.py <server_address> <network_name>`_
 
 Network connections can be unreliable, therefore the benchmarking software will detect failed measurements and automatically re-do them until it can record correct measurements. Therefore there is no need for internal error reporting for the aspect of the software.
 
