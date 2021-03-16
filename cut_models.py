@@ -37,12 +37,11 @@ import psutil
 # Import common functions, shared between the Cloud and the Edge
 from benchmarking_common_functions import *
 
-if len(sys.argv) < 3:
-    print('Run like this: sudo python3 cut_models.py <model_name> <batch_size>')
+if len(sys.argv) < 2:
+    print('Run like this: sudo python3 cut_models.py <model_name>')
     exit()
 
 model_name = sys.argv[1]
-batch_size = int(sys.argv[2])
 model = set_model(model_name)
 
 images = ['dog', 'cat', 'tree', 'car', 'banana']
@@ -148,15 +147,23 @@ for c in range(0, len(model.layers)):
         
         modelA, modelB = cut_model(model, c)
 
+        print('---------')
+        for l in modelA.layers:
+            print(l)
+        print('---------')
+
         warmup_start = time.time()
                                     
-        image = load_img('images/'+images[0]+'.jpg', target_size=(224, 224))
+        if model_name == 'lenet':
+            image = load_img('images/'+images[0]+'.jpg', color_mode='grayscale', target_size=(28, 28))
+        else:
+            image = load_img('images/'+images[0]+'.jpg', target_size=(224, 224))
 
         # convert the image pixels to a numpy array
         image = img_to_array(image)
 
         # image = np.expand_dims(image, axis=0)
-        image = np.array([image for x in range(batch_size)])
+        image = np.array([image for x in range(1)])
 
         image = vgg16.preprocess_input(image)
         input_data = modelA.predict(image)
@@ -166,7 +173,7 @@ for c in range(0, len(model.layers)):
         print('done warmup prediction')
 
         model_json = modelA.to_json()
-        with open('edge_models_'+str(batch_size)+'b/edge_models_'+model_name+'/model_'+ str(c) +'.json', 'w') as json_file:
+        with open('edge_models/edge_models_'+model_name+'/model_'+ str(c) +'.json', 'w') as json_file:
             json_file.write(model_json)
         print('done model ', c)
 
