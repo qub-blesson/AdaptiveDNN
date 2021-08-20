@@ -13,7 +13,7 @@ Given a DNN model, the approach firstly identifies all partitioning points of th
 
 ### Citing this work
 This work can be cited as follows:
-F. McNamee, S. Dustadar, P. Kilpatrick, W. Shi, I. Spence and B. Varghese, "[A Case For Adaptive Deep Neural Networks in Edge Computing](https://arxiv.org/pdf/2008.01814.pdf)," eprint arXiv:2008.01814.
+F. McNamee, S. Dustdar, P. Kilpatrick, W. Shi, I. Spence and B. Varghese, "[A Case For Adaptive Deep Neural Networks in Edge Computing](https://arxiv.org/pdf/2008.01814.pdf)," accepted to the IEEE International Conference on Cloud Computing, 2021.
 
 ### Instructions for installing the software
 This code was tested using Python version 3.8.5 but any version of Python 3 should be fine.
